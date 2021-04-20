@@ -1,13 +1,9 @@
-import express, { request } from 'express';
+import express from 'express'
+import './db'
+import { routes } from './routes'
+const app = express()
 
-const app = express();
+app.use(express.json())
+app.use(routes)
 
-app.get('/', (request, response) => {
-  return response.send('Nlw 05');
-});
-
-app.post('/', (request, response) => {
-  return response.json({ message: 'Usuário salvo com sucesso!' });
-});
-
-app.listen(1337, () => console.log('Server running on port 1337'));
+app.listen(1337, () => console.log('Server running on port 1337'))
