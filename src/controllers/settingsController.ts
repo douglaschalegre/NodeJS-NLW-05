@@ -1,19 +1,15 @@
 import { Request, Response } from 'express'
-import { getCustomRepository } from 'typeorm'
-import { SettingsRepository } from '../repositories/settingsRepository'
+import { SettingsService } from '../services/settingsService'
 
 class SettingsController {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   async create(request: Request, response: Response) {
     const { chat, username } = request.body
-    const settingsRepository = getCustomRepository(SettingsRepository)
 
-    const settings = settingsRepository.create({
-      chat,
-      username
-    })
+    const settingsService = new SettingsService()
 
-    await settingsRepository.save(settings)
+    const settings = await settingsService.create({ chat, username })
+
     return response.json(settings)
   }
 }
